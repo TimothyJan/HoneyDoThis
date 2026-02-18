@@ -1,0 +1,10 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:62609",
+"RedirectUrl": "",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "C:\\Github\\HoneyDoThis\\HoneyDoThis.Server\\..\\honeydothis.client",
+"MaxTimeoutInSeconds": "120",
+"KeepRunning": "false"
+}
+}

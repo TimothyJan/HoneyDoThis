@@ -1,0 +1,6 @@
+@HoneyDoThis.Server_HostAddress = http://localhost:5157
+
+GET {{HoneyDoThis.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

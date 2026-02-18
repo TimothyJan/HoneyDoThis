@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36915.13 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "honeydothis.client", "honeydothis.client\honeydothis.client.esproj", "{3D7205CA-4F27-320E-BCF8-D09812BDAB97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoneyDoThis.Server", "HoneyDoThis.Server\HoneyDoThis.Server.csproj", "{115FD80C-8E97-4E8B-833A-EC2EBB2B2073}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3D7205CA-4F27-320E-BCF8-D09812BDAB97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D7205CA-4F27-320E-BCF8-D09812BDAB97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D7205CA-4F27-320E-BCF8-D09812BDAB97}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3D7205CA-4F27-320E-BCF8-D09812BDAB97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D7205CA-4F27-320E-BCF8-D09812BDAB97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D7205CA-4F27-320E-BCF8-D09812BDAB97}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{115FD80C-8E97-4E8B-833A-EC2EBB2B2073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{115FD80C-8E97-4E8B-833A-EC2EBB2B2073}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{115FD80C-8E97-4E8B-833A-EC2EBB2B2073}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{115FD80C-8E97-4E8B-833A-EC2EBB2B2073}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F94C3FB8-7F27-44EF-9C8B-FF2F578D1325}
+	EndGlobalSection
+EndGlobal

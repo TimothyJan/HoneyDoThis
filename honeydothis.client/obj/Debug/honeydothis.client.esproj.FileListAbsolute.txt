@@ -1,0 +1,1 @@
+C:\Github\HoneyDoThis\honeydothis.client\obj\Debug\honeydothis.client.esproj.CoreCompileInputs.cache
