@@ -1,0 +1,185 @@
+<!-- Main task list view -->
+
+<!-- ==========================================================================
+   ADD TASK FORM
+   ========================================================================== -->
+<div id="form">
+    <form (ngSubmit)="addTask($event)">
+        <input
+            class="task-input"
+            type="text"
+            placeholder="Add a task."
+            [(ngModel)]="newTaskText"
+            name="todoInput"
+            [ngClass]="currentTheme + '-input'">
+        <button
+            class="task-btn"
+            type="submit"
+            [ngClass]="currentTheme + '-button'">
+            Add
+        </button>
+    </form>
+</div>
+
+<!-- ==========================================================================
+   FILTER BUTTONS - Using async pipe for reactive count updates
+   ========================================================================== -->
+<div class="filter-container">
+    <button
+        class="filter-btn"
+        [ngClass]="[
+            currentTheme + '-button',
+            currentFilter === 'all' ? 'active-filter' : ''
+        ]"
+        (click)="setFilter('all')">
+        View All ({{ totalCount$ | async }})
+    </button>
+    <button
+        class="filter-btn"
+        [ngClass]="[
+            currentTheme + '-button',
+            currentFilter === 'active' ? 'active-filter' : ''
+        ]"
+        (click)="setFilter('active')">
+        Active ({{ activeCount$ | async }})
+    </button>
+    <button
+        class="filter-btn"
+        [ngClass]="[
+            currentTheme + '-button',
+            currentFilter === 'completed' ? 'active-filter' : ''
+        ]"
+        (click)="setFilter('completed')">
+        Completed ({{ completedCount$ | async }})
+    </button>
+</div>
+
+<!-- ==========================================================================
+   CLEAR COMPLETED BUTTON - Only shown when there are completed tasks
+   ========================================================================== -->
+@if (hasCompletedTasks$ | async) {
+    <div class="clear-container">
+        <button
+            class="clear-btn"
+            [ngClass]="currentTheme + '-button'"
+            (click)="clearCompleted()">
+            Clear Completed
+        </button>
+    </div>
+}
+
+<!-- ==========================================================================
+   DRAG INSTRUCTIONS - Only shown when drag is enabled
+   ========================================================================== -->
+@if (!dragDisabled && filteredTasks.length > 1) {
+    <div class="drag-instructions" [ngClass]="currentTheme + '-text'">
+        <i class="fas fa-arrows-alt"></i> Drag tasks to reorder
+    </div>
+}
+
+<!-- ==========================================================================
+   TASK LIST WITH DRAG AND DROP
+   ========================================================================== -->
+<div id="myUnOrdList">
+    <div cdkDropList
+         class="task-list"
+         [cdkDropListDisabled]="dragDisabled"
+         (cdkDropListDropped)="drop($event)">
+
+        <!-- Iterate through filtered tasks -->
+        @for(task of filteredTasks; track task.id) {
+            <div class="task"
+                 cdkDrag
+                 [ngClass]="[currentTheme + '-task', task.completed ? 'completed' : '']"
+                 [class.fall]="task.isFalling"
+                 [class.drag-disabled]="dragDisabled">
+
+                <!-- Drag Handle - Only visible when drag enabled -->
+                @if (!dragDisabled) {
+                    <div class="drag-handle" cdkDragHandle>
+                        <i class="fas fa-grip-vertical"></i>
+                    </div>
+                }
+
+                <!-- Main content wrapper -->
+                <div class="task-content-wrapper">
+
+                    <!-- Primary task row - text + action buttons -->
+                    <div class="task-main-row">
+                        <span class="task-item">{{ task.text }}</span>
+
+                        <div class="task-actions">
+                            <!-- Complete/incomplete toggle -->
+                            <button
+                                class="check-btn"
+                                [ngClass]="currentTheme + '-button'"
+                                (click)="toggleComplete(task.id)"
+                                [attr.aria-label]="task.completed ? 'Mark incomplete' : 'Mark complete'">
+                                <i class="fas fa-check"></i>
+                            </button>
+
+                            <!-- Delete button -->
+                            <button
+                                class="delete-btn"
+                                [ngClass]="currentTheme + '-button'"
+                                (click)="deleteTask(task.id)"
+                                aria-label="Delete task">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Subtask section - always rendered but may be empty -->
+                    <div class="task-subtask-row">
+                        <!-- Subtask toggle button - only shown if subtasks exist -->
+                        @if (hasSubtasks(task.id)) {
+                            <button
+                                class="subtask-toggle-btn"
+                                [ngClass]="currentTheme + '-button'"
+                                (click)="toggleTaskExpanded(task.id)">
+                                <i class="fas"
+                                  [class.fa-chevron-right]="!task.expanded"
+                                  [class.fa-chevron-down]="task.expanded">
+                                </i>
+                                <span class="subtask-count-badge">
+                                    {{ getSubtaskCount(task.id) | async }}
+                                </span>
+                            </button>
+                        }
+
+                        <!-- Subtask list component - handles its own expansion state -->
+                        <app-subtask-list
+                            [taskId]="task.id"
+                            [currentTheme]="currentTheme"
+                            [class.hidden]="!task.expanded && hasSubtasks(task.id)">
+                        </app-subtask-list>
+                    </div>
+                </div>
+
+                <!-- Drag and drop preview elements -->
+                <div *cdkDragPreview class="drag-preview" [ngClass]="currentTheme + '-task'">
+                    <span>{{ task.text }}</span>
+                    <span class="drag-preview-badge">Moving...</span>
+                </div>
+
+                <div *cdkDragPlaceholder class="drag-placeholder"></div>
+            </div>
+        }
+
+        <!-- Empty state message when no tasks match filter -->
+        @if (filteredTasks.length === 0) {
+            <div class="task empty-state"
+                 [ngClass]="currentTheme + '-task'">
+                <span class="task-item">
+                    @if (currentFilter === 'all') {
+                        No tasks yet. Add one above!
+                    } @else if (currentFilter === 'active') {
+                        No active tasks. Great job!
+                    } @else {
+                        No completed tasks yet.
+                    }
+                </span>
+            </div>
+        }
+    </div>
+</div>

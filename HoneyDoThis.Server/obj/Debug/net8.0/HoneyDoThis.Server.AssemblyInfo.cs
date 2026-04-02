@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HoneyDoThis.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+502705adb0371c44c7f34296a93b7a321f1f3ec2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+323bd84123c6dccfaa8d6283288d73a1d85d4ea2")]
 [assembly: System.Reflection.AssemblyProductAttribute("HoneyDoThis.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HoneyDoThis.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
